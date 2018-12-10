@@ -9,12 +9,14 @@ Answers
 -------
 These are the answers for my data files:
 
-=== ====== ======
-Day Part A Part B
---- ------ ------
-1   585    83173
-2   4712   lufjygedpvfbhftxiwnaorzmq
-3   105231 164
+=== ========================== ======
+Day Part A                     Part B
+--- -------------------------- ------
+1   585                        83173
+2   4712                       lufjygedpvfbhftxiwnaorzmq
+3   105231                     164
 4
-5   10888  6952
-=== ====== ======
+5   10888                      6952
+6
+7   JKNSTHCBGRVDXWAYFOQLMPZIUE
+=== ========================== ======
