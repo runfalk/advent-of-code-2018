@@ -5,9 +5,7 @@ fn extract_base10_digit(mut value: usize, index: u32) -> usize {
     value % 10
 }
 
-fn grid_iterator(start: (usize, usize), end: (usize, usize)) -> impl Iterator<Item = (usize, usize)> {
-    let (sx, sy) = start;
-    let (ex, ey) = end;
+fn grid_iterator((sx, sy): (usize, usize), (ex, ey): (usize, usize)) -> impl Iterator<Item = (usize, usize)> {
     (sx..=ex).flat_map(move |x| repeat(x).zip(sy..=ey))
 }
 
@@ -23,9 +21,9 @@ fn fuel_cell_group_sum(serial: usize, x: usize, y: usize) -> isize {
 }
 
 fn part_a(serial: usize) -> (usize, usize) {
-    // We end at x or y = 297 since that's the top left corner of the last fuel
+    // We end at x or y = 298 since that's the top left corner of the last fuel
     // cell group
-    let (_, x, y) = grid_iterator((1, 1), (297, 297))
+    let (_, x, y) = grid_iterator((1, 1), (298, 298))
         .map(|(x, y)| (fuel_cell_group_sum(serial, x, y), x, y))
         .max().unwrap();
     (x, y)
