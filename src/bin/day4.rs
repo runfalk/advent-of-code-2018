@@ -158,24 +158,25 @@ fn main() {
 
 #[test]
 fn test_parse_guard_event() {
+    use chrono::NaiveDate;
     assert_eq!(
         "[1518-11-01 00:00] Guard #10 begins shift".parse::<GuardEvent>(),
         Ok(GuardEvent {
-            timestamp: "1518-11-01 00:00".into(),
+            timestamp: NaiveDate::from_ymd(1518, 11, 1).and_hms(0, 0, 0),
             event_type: GuardEventType::Begin(10)
         }),
     );
     assert_eq!(
         "[1518-11-01 00:05] falls asleep".parse::<GuardEvent>(),
         Ok(GuardEvent {
-            timestamp: "1518-11-01 00:05".into(),
+            timestamp: NaiveDate::from_ymd(1518, 11, 1).and_hms(0, 5, 0),
             event_type: GuardEventType::Asleep
         }),
     );
     assert_eq!(
         "[1518-11-01 00:25] wakes up".parse::<GuardEvent>(),
         Ok(GuardEvent {
-            timestamp: "1518-11-01 00:25".into(),
+            timestamp: NaiveDate::from_ymd(1518, 11, 1).and_hms(0, 25, 0),
             event_type: GuardEventType::Awake
         }),
     );
