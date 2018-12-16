@@ -62,6 +62,7 @@ impl<T> Ouroboros<T> {
         self.len += 1;
     }
 
+    #[cfg(test)]
     fn get(&self) -> Option<&T> {
         unsafe {
             if let Some(ref c) = self.current {

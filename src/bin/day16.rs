@@ -173,7 +173,7 @@ fn part_b(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), 
             .map(|x| x.iter().next().unwrap())
         );
 
-        for (code, possible_ops) in op_map.range_mut(..) {
+        for (_, possible_ops) in op_map.range_mut(..) {
             if possible_ops.len() == 1 {
                 continue;
             }

@@ -46,6 +46,11 @@ fn test_day3() {
 }
 
 #[test]
+fn test_day4() {
+    assert_eq!(run_day(4, &["data/day4.txt"]).unwrap(), ab("19025", "23776"));
+}
+
+#[test]
 fn test_day5() {
     assert_eq!(run_day(5, &["data/day5.txt"]).unwrap(), ab("10888", "6952"));
 }
