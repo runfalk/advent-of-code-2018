@@ -1,14 +1,18 @@
 use aoc::{buf_reader_from_arg, parse_lines};
 use lazy_static::lazy_static;
-use std::collections::{BTreeMap, BTreeSet};
 use regex::Regex;
+use std::collections::{BTreeMap, BTreeSet};
 
 fn parse_dep(s: String) -> (char, char) {
     lazy_static! {
-        static ref guard_re: Regex = Regex::new(r"^Step (\w) must be finished before step (\w)").unwrap();
+        static ref guard_re: Regex =
+            Regex::new(r"^Step (\w) must be finished before step (\w)").unwrap();
     }
     let captures = guard_re.captures(&s).unwrap();
-    (captures[1].parse::<char>().unwrap(), captures[2].parse::<char>().unwrap())
+    (
+        captures[1].parse::<char>().unwrap(),
+        captures[2].parse::<char>().unwrap(),
+    )
 }
 
 fn part_a(deps: impl Iterator<Item = (char, char)>) -> String {
@@ -17,8 +21,14 @@ fn part_a(deps: impl Iterator<Item = (char, char)>) -> String {
     let mut step_to_deps = BTreeMap::new();
 
     for (dep, step) in deps {
-        dep_to_steps.entry(dep).or_insert(BTreeSet::new()).insert(step);
-        step_to_deps.entry(step).or_insert(BTreeSet::new()).insert(dep);
+        dep_to_steps
+            .entry(dep)
+            .or_insert(BTreeSet::new())
+            .insert(step);
+        step_to_deps
+            .entry(step)
+            .or_insert(BTreeSet::new())
+            .insert(dep);
 
         // Mark all dependencies as candidates for being available
         available.insert(dep);
@@ -39,7 +49,11 @@ fn part_a(deps: impl Iterator<Item = (char, char)>) -> String {
         out.push(current);
         done.insert(current);
 
-        for step in dep_to_steps.entry(current).or_insert(BTreeSet::new()).iter() {
+        for step in dep_to_steps
+            .entry(current)
+            .or_insert(BTreeSet::new())
+            .iter()
+        {
             if step_to_deps[step].is_subset(&done) {
                 available.insert(step.clone());
             }
@@ -56,7 +70,10 @@ fn main() {
 
 #[test]
 fn test_parse_dep() {
-    assert_eq!(parse_dep("Step C must be finished before step A can begin.".into()), ('C', 'A'));
+    assert_eq!(
+        parse_dep("Step C must be finished before step A can begin.".into()),
+        ('C', 'A')
+    );
 }
 
 #[test]

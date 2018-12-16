@@ -14,7 +14,7 @@ impl<T> Node<T> {
         Self {
             prev: None,
             next: None,
-            value: value,
+            value,
         }
     }
 

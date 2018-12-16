@@ -72,19 +72,67 @@ fn part_b(box_ids: impl Iterator<Item = String>) -> String {
 }
 
 fn main() {
-    println!("Answer A: {}", part_a(parse_lines::<ChecksumPart>(buf_reader_from_arg().unwrap())));
-    println!("Answer B: {}", part_b(parse_lines::<String>(buf_reader_from_arg().unwrap())));
+    println!(
+        "Answer A: {}",
+        part_a(parse_lines::<ChecksumPart>(buf_reader_from_arg().unwrap()))
+    );
+    println!(
+        "Answer B: {}",
+        part_b(parse_lines::<String>(buf_reader_from_arg().unwrap()))
+    );
 }
 
 #[test]
 fn test_checksum_part() {
-    assert_eq!("abcdef".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: false, has_triples: false });
-    assert_eq!("bababc".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: true, has_triples: true });
-    assert_eq!("abbcde".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: true, has_triples: false });
-    assert_eq!("abcccd".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: false, has_triples: true });
-    assert_eq!("aabcdd".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: true, has_triples: false });
-    assert_eq!("abcdee".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: true, has_triples: false });
-    assert_eq!("ababab".parse::<ChecksumPart>().unwrap(), ChecksumPart { has_doubles: false, has_triples: true });
+    assert_eq!(
+        "abcdef".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: false,
+            has_triples: false
+        }
+    );
+    assert_eq!(
+        "bababc".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: true,
+            has_triples: true
+        }
+    );
+    assert_eq!(
+        "abbcde".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: true,
+            has_triples: false
+        }
+    );
+    assert_eq!(
+        "abcccd".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: false,
+            has_triples: true
+        }
+    );
+    assert_eq!(
+        "aabcdd".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: true,
+            has_triples: false
+        }
+    );
+    assert_eq!(
+        "abcdee".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: true,
+            has_triples: false
+        }
+    );
+    assert_eq!(
+        "ababab".parse::<ChecksumPart>().unwrap(),
+        ChecksumPart {
+            has_doubles: false,
+            has_triples: true
+        }
+    );
 }
 
 #[test]

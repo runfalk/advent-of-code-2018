@@ -6,7 +6,10 @@ fn extract_base10_digit(mut value: usize, index: u32) -> usize {
     value % 10
 }
 
-fn grid_iterator((sx, sy): (usize, usize), (ex, ey): (usize, usize)) -> impl Iterator<Item = (usize, usize)> {
+fn grid_iterator(
+    (sx, sy): (usize, usize),
+    (ex, ey): (usize, usize),
+) -> impl Iterator<Item = (usize, usize)> {
     (sx..=ex).flat_map(move |x| repeat(x).zip(sy..=ey))
 }
 
@@ -16,8 +19,8 @@ fn fuel_cell_value(serial: usize, x: usize, y: usize) -> isize {
 }
 
 fn fuel_cell_group_sum(serial: usize, x: usize, y: usize) -> isize {
-    grid_iterator((x, y), (x + 2, y +2))
-        .map(|(x, y)| fuel_cell_value(serial, x,  y))
+    grid_iterator((x, y), (x + 2, y + 2))
+        .map(|(x, y)| fuel_cell_value(serial, x, y))
         .sum::<isize>()
 }
 
@@ -26,7 +29,8 @@ fn part_a(serial: usize) -> (usize, usize) {
     // cell group
     let (_, x, y) = grid_iterator((1, 1), (298, 298))
         .map(|(x, y)| (fuel_cell_group_sum(serial, x, y), x, y))
-        .max().unwrap();
+        .max()
+        .unwrap();
     (x, y)
 }
 
@@ -58,5 +62,4 @@ fn test_fuel_cell_group_sum() {
 }
 
 #[test]
-fn test_a() {
-}
+fn test_a() {}

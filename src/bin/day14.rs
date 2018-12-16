@@ -1,7 +1,10 @@
 use aoc::get_arg;
 
 fn parse_digits(number: &str) -> Vec<u8> {
-    number.chars().map(|x| x.to_digit(10).unwrap() as u8).collect()
+    number
+        .chars()
+        .map(|x| x.to_digit(10).unwrap() as u8)
+        .collect()
 }
 
 fn part_a(recipe_index: usize) -> String {
@@ -17,7 +20,10 @@ fn part_a(recipe_index: usize) -> String {
         elf_a = (elf_a + recipes[elf_a] as usize + 1) % recipes.len();
         elf_b = (elf_b + recipes[elf_b] as usize + 1) % recipes.len();
     }
-    recipes[recipe_index..recipe_index + 10].iter().map(|x| x.to_string()).collect::<String>()
+    recipes[recipe_index..recipe_index + 10]
+        .iter()
+        .map(|x| x.to_string())
+        .collect::<String>()
 }
 
 fn part_b(sequence: &str) -> usize {
@@ -42,12 +48,14 @@ fn part_b(sequence: &str) -> usize {
         let seq_start = recipes.len() - sequence.len();
         if recipes[seq_start..] == sequence[..] {
             return seq_start;
-        } else if added_two && seq_start >= 1 && recipes[seq_start - 1..recipes.len() - 1] == sequence[..] {
+        } else if added_two
+            && seq_start >= 1
+            && recipes[seq_start - 1..recipes.len() - 1] == sequence[..]
+        {
             return seq_start - 1;
         }
     }
 }
-
 
 fn main() {
     let arg: String = get_arg().unwrap();
@@ -58,7 +66,10 @@ fn main() {
 
 #[test]
 fn test_parse_digits() {
-    assert_eq!(parse_digits("1234567890"), vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+    assert_eq!(
+        parse_digits("1234567890"),
+        vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    );
 }
 
 #[test]

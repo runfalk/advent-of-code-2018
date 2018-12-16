@@ -1,7 +1,7 @@
 use aoc::{buf_reader_from_arg, parse_lines};
 use lazy_static::lazy_static;
-use std::str::FromStr;
 use regex::Regex;
+use std::str::FromStr;
 
 #[derive(Debug, PartialEq, Eq)]
 struct Rectangle {
@@ -21,13 +21,44 @@ impl FromStr for Rectangle {
         }
         let caps = rect_re.captures(rect).ok_or(())?;
 
-        let id = caps.get(1).ok_or(())?.as_str().parse::<usize>().or(Err(()))?;
-        let x = caps.get(2).ok_or(())?.as_str().parse::<usize>().or(Err(()))?;
-        let y = caps.get(3).ok_or(())?.as_str().parse::<usize>().or(Err(()))?;
-        let width = caps.get(4).ok_or(())?.as_str().parse::<usize>().or(Err(()))?;
-        let height = caps.get(5).ok_or(())?.as_str().parse::<usize>().or(Err(()))?;
+        let id = caps
+            .get(1)
+            .ok_or(())?
+            .as_str()
+            .parse::<usize>()
+            .or(Err(()))?;
+        let x = caps
+            .get(2)
+            .ok_or(())?
+            .as_str()
+            .parse::<usize>()
+            .or(Err(()))?;
+        let y = caps
+            .get(3)
+            .ok_or(())?
+            .as_str()
+            .parse::<usize>()
+            .or(Err(()))?;
+        let width = caps
+            .get(4)
+            .ok_or(())?
+            .as_str()
+            .parse::<usize>()
+            .or(Err(()))?;
+        let height = caps
+            .get(5)
+            .ok_or(())?
+            .as_str()
+            .parse::<usize>()
+            .or(Err(()))?;
 
-        Ok(Rectangle {id, x, y, width, height})
+        Ok(Rectangle {
+            id,
+            x,
+            y,
+            width,
+            height,
+        })
     }
 }
 
@@ -39,7 +70,9 @@ impl Fabric {
     const WIDTH: usize = 1_000;
 
     fn new() -> Self {
-        Self { tiles: [0; 1_000_000] }
+        Self {
+            tiles: [0; 1_000_000],
+        }
     }
 
     fn alloc_patch(&mut self, rect: &Rectangle) -> u8 {
@@ -80,9 +113,9 @@ fn part_ab(rects: &Vec<Rectangle>) -> (usize, usize) {
     panic!("Found no non-overlapping rectangles");
 }
 
-
 fn main() {
-    let rects = parse_lines::<Rectangle>(buf_reader_from_arg().unwrap()).collect::<Vec<Rectangle>>();
+    let rects =
+        parse_lines::<Rectangle>(buf_reader_from_arg().unwrap()).collect::<Vec<Rectangle>>();
     let (a, b) = part_ab(&rects);
     println!("Answer A: {}", a);
     println!("Answer B: {}", b);
@@ -90,9 +123,36 @@ fn main() {
 
 #[test]
 fn test_parse_rectangle() {
-    assert_eq!("#1 @ 1,3: 4x4".parse::<Rectangle>(), Ok(Rectangle { id: 1, x: 1, y: 3, width: 4, height: 4}));
-    assert_eq!("#2 @ 3,1: 4x4".parse::<Rectangle>(), Ok(Rectangle { id: 2, x: 3, y: 1, width: 4, height: 4}));
-    assert_eq!("#3 @ 5,5: 2x2".parse::<Rectangle>(), Ok(Rectangle { id: 3, x: 5, y: 5, width: 2, height: 2}));
+    assert_eq!(
+        "#1 @ 1,3: 4x4".parse::<Rectangle>(),
+        Ok(Rectangle {
+            id: 1,
+            x: 1,
+            y: 3,
+            width: 4,
+            height: 4
+        })
+    );
+    assert_eq!(
+        "#2 @ 3,1: 4x4".parse::<Rectangle>(),
+        Ok(Rectangle {
+            id: 2,
+            x: 3,
+            y: 1,
+            width: 4,
+            height: 4
+        })
+    );
+    assert_eq!(
+        "#3 @ 5,5: 2x2".parse::<Rectangle>(),
+        Ok(Rectangle {
+            id: 3,
+            x: 5,
+            y: 5,
+            width: 2,
+            height: 2
+        })
+    );
 }
 
 #[test]

@@ -20,8 +20,14 @@ fn part_b(changes: impl Iterator<Item = i32>) -> i32 {
 }
 
 fn main() {
-    println!("Answer A: {}", part_a(parse_lines::<i32>(buf_reader_from_arg().unwrap())));
-    println!("Answer B: {}", part_b(parse_lines::<i32>(buf_reader_from_arg().unwrap())));
+    println!(
+        "Answer A: {}",
+        part_a(parse_lines::<i32>(buf_reader_from_arg().unwrap()))
+    );
+    println!(
+        "Answer B: {}",
+        part_b(parse_lines::<i32>(buf_reader_from_arg().unwrap()))
+    );
 }
 
 #[test]

@@ -2,11 +2,16 @@ use std::ffi::OsStr;
 use std::process::Command;
 use std::str;
 
-fn run_day<I, S>(day: usize, args: I) -> Result<(String, Option<String>), ()> where I: IntoIterator<Item = S>, S: AsRef<OsStr> {
+fn run_day<I, S>(day: usize, args: I) -> Result<(String, Option<String>), ()>
+where
+    I: IntoIterator<Item = S>,
+    S: AsRef<OsStr>,
+{
     let output = Command::new("cargo")
         .args(&["run", "-q", "--bin", &format!("day{}", day)])
         .args(args)
-        .output().or(Err(()))?;
+        .output()
+        .or(Err(()))?;
     let stdout = str::from_utf8(&output.stdout).or(Err(()))?;
 
     let mut a = None;
@@ -37,7 +42,10 @@ fn test_day1() {
 
 #[test]
 fn test_day2() {
-    assert_eq!(run_day(2, &["data/day2.txt"]).unwrap(), ab("4712", "lufjygedpvfbhftxiwnaorzmq"));
+    assert_eq!(
+        run_day(2, &["data/day2.txt"]).unwrap(),
+        ab("4712", "lufjygedpvfbhftxiwnaorzmq")
+    );
 }
 
 #[test]
@@ -47,7 +55,10 @@ fn test_day3() {
 
 #[test]
 fn test_day4() {
-    assert_eq!(run_day(4, &["data/day4.txt"]).unwrap(), ab("19025", "23776"));
+    assert_eq!(
+        run_day(4, &["data/day4.txt"]).unwrap(),
+        ab("19025", "23776")
+    );
 }
 
 #[test]
@@ -57,17 +68,26 @@ fn test_day5() {
 
 #[test]
 fn test_day7() {
-    assert_eq!(run_day(7, &["data/day7.txt"]).unwrap(), a("JKNSTHCBGRVDXWAYFOQLMPZIUE"));
+    assert_eq!(
+        run_day(7, &["data/day7.txt"]).unwrap(),
+        a("JKNSTHCBGRVDXWAYFOQLMPZIUE")
+    );
 }
 
 #[test]
 fn test_day8() {
-    assert_eq!(run_day(8, &["data/day8.txt"]).unwrap(), ab("37905", "33891"));
+    assert_eq!(
+        run_day(8, &["data/day8.txt"]).unwrap(),
+        ab("37905", "33891")
+    );
 }
 
 #[test]
 fn test_day9() {
-    assert_eq!(run_day(9, &["411", "71170"]).unwrap(), ab("425688", "3526561003"));
+    assert_eq!(
+        run_day(9, &["411", "71170"]).unwrap(),
+        ab("425688", "3526561003")
+    );
 }
 
 #[test]
@@ -77,7 +97,10 @@ fn test_day11() {
 
 #[test]
 fn test_day14() {
-    assert_eq!(run_day(14, &["864801"]).unwrap(), ab("1611732174", "20279772"));
+    assert_eq!(
+        run_day(14, &["864801"]).unwrap(),
+        ab("1611732174", "20279772")
+    );
 }
 
 #[test]

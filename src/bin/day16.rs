@@ -11,7 +11,9 @@ struct Registers {
 
 impl Registers {
     fn from_values(a: usize, b: usize, c: usize, d: usize) -> Self {
-        Self { values: [a, b, c, d] }
+        Self {
+            values: [a, b, c, d],
+        }
     }
 }
 
@@ -54,73 +56,59 @@ impl OpCode {
         match *self {
             Addr => {
                 registers[c] = registers[a] + registers[b];
-            },
+            }
             Addi => {
                 registers[c] = registers[a] + b;
-            },
+            }
             Mulr => {
                 registers[c] = registers[a] * registers[b];
-            },
+            }
             Muli => {
                 registers[c] = registers[a] * b;
-            },
+            }
             Banr => {
                 registers[c] = registers[a] & registers[b];
-            },
+            }
             Bani => {
                 registers[c] = registers[a] & b;
-            },
+            }
             Borr => {
                 registers[c] = registers[a] | registers[b];
-            },
+            }
             Bori => {
                 registers[c] = registers[a] | b;
-            },
+            }
             Setr => {
                 registers[c] = registers[a];
-            },
+            }
             Seti => {
                 registers[c] = a;
-            },
+            }
             Gtir => {
                 registers[c] = (a > registers[b]) as usize;
-            },
+            }
             Gtri => {
                 registers[c] = (registers[a] > b) as usize;
-            },
+            }
             Gtrr => {
                 registers[c] = (registers[a] > registers[b]) as usize;
-            },
+            }
             Eqir => {
                 registers[c] = (a == registers[b]) as usize;
-            },
+            }
             Eqri => {
                 registers[c] = (registers[a] == b) as usize;
-            },
+            }
             Eqrr => {
                 registers[c] = (registers[a] == registers[b]) as usize;
-            },
+            }
         }
     }
 
     fn values() -> Iter<'static, Self> {
         static OPCODES: [OpCode; 16] = [
-            Addr,
-            Addi,
-            Mulr,
-            Muli,
-            Banr,
-            Bani,
-            Borr,
-            Bori,
-            Setr,
-            Seti,
-            Gtir,
-            Gtri,
-            Gtrr,
-            Eqir,
-            Eqri,
-            Eqrr,
+            Addr, Addi, Mulr, Muli, Banr, Bani, Borr, Bori, Setr, Seti, Gtir, Gtri, Gtrr, Eqir,
+            Eqri, Eqrr,
         ];
         OPCODES.into_iter()
     }
@@ -131,7 +119,9 @@ fn eval_opcode(mut regs: Registers, opcode: OpCode, a: usize, b: usize, c: usize
     regs
 }
 
-fn part_a(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), Registers)>) -> usize {
+fn part_a(
+    tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), Registers)>,
+) -> usize {
     let mut num_triples = 0;
     for (in_, args, out) in tests {
         let mut num_matching_opcodes = 0;
@@ -148,7 +138,10 @@ fn part_a(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), 
     num_triples
 }
 
-fn part_b(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), Registers)>, program: impl Iterator<Item = (usize, usize, usize, usize)>) -> usize {
+fn part_b(
+    tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), Registers)>,
+    program: impl Iterator<Item = (usize, usize, usize, usize)>,
+) -> usize {
     let opcodes: HashSet<_> = OpCode::values().map(|x| x.clone()).collect();
 
     let mut op_map: BTreeMap<usize, HashSet<OpCode>> = BTreeMap::new();
@@ -167,10 +160,11 @@ fn part_b(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), 
 
     let mut done_opcodes: HashSet<OpCode> = HashSet::new();
     while done_opcodes != opcodes {
-        done_opcodes.extend(op_map
-            .values()
-            .filter(|x| x.len() == 1)
-            .map(|x| x.iter().next().unwrap())
+        done_opcodes.extend(
+            op_map
+                .values()
+                .filter(|x| x.len() == 1)
+                .map(|x| x.iter().next().unwrap()),
         );
 
         for (_, possible_ops) in op_map.range_mut(..) {
@@ -184,7 +178,10 @@ fn part_b(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), 
     }
 
     // Convert the opcodes to a true map
-    let opcodes: HashMap<usize, OpCode> = op_map.into_iter().map(|(k, v)| (k, v.iter().next().unwrap().clone())).collect();
+    let opcodes: HashMap<usize, OpCode> = op_map
+        .into_iter()
+        .map(|(k, v)| (k, v.iter().next().unwrap().clone()))
+        .collect();
 
     let mut regs = Registers::from_values(0, 0, 0, 0);
     for (op, a, b, c) in program {
@@ -257,7 +254,16 @@ fn main() {
 
 #[test]
 fn test_opcode_eval() {
-    assert_eq!(eval_opcode(Registers::from_values(3, 2, 1, 1), Mulr, 2, 1, 2), Registers::from_values(3, 2, 2, 1));
-    assert_eq!(eval_opcode(Registers::from_values(3, 2, 1, 1), Addi, 2, 1, 2), Registers::from_values(3, 2, 2, 1));
-    assert_eq!(eval_opcode(Registers::from_values(3, 2, 1, 1), Seti, 2, 1, 2), Registers::from_values(3, 2, 2, 1));
+    assert_eq!(
+        eval_opcode(Registers::from_values(3, 2, 1, 1), Mulr, 2, 1, 2),
+        Registers::from_values(3, 2, 2, 1)
+    );
+    assert_eq!(
+        eval_opcode(Registers::from_values(3, 2, 1, 1), Addi, 2, 1, 2),
+        Registers::from_values(3, 2, 2, 1)
+    );
+    assert_eq!(
+        eval_opcode(Registers::from_values(3, 2, 1, 1), Seti, 2, 1, 2),
+        Registers::from_values(3, 2, 2, 1)
+    );
 }

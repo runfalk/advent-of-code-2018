@@ -49,10 +49,10 @@ fn part_b(mut parts: impl Iterator<Item = u8>) -> usize {
 }
 
 fn main() {
-    let line = parse_lines::<String>(buf_reader_from_arg().unwrap()).next().unwrap();
-    let license = line
-        .split(" ")
-        .map(|x| x.parse::<u8>().unwrap());
+    let line = parse_lines::<String>(buf_reader_from_arg().unwrap())
+        .next()
+        .unwrap();
+    let license = line.split(" ").map(|x| x.parse::<u8>().unwrap());
 
     println!("Answer A: {}", part_a(license.clone()));
     println!("Answer B: {}", part_b(license));
@@ -63,7 +63,6 @@ fn test_a() {
     let license = vec![2u8, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2];
     assert_eq!(part_a(license.into_iter()), 138);
 }
-
 
 #[test]
 fn test_b() {

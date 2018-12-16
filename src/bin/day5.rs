@@ -26,13 +26,17 @@ fn part_a(units: impl Iterator<Item = char>) -> usize {
 }
 
 fn part_b(polymer: String) -> usize {
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".chars().map(|excl| {
-        react(polymer.chars().filter(|u| !u.eq_ignore_ascii_case(&excl))).len()
-    }).min().unwrap()
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        .chars()
+        .map(|excl| react(polymer.chars().filter(|u| !u.eq_ignore_ascii_case(&excl))).len())
+        .min()
+        .unwrap()
 }
 
 fn main() {
-    let polymer = parse_lines::<String>(buf_reader_from_arg().unwrap()).next().unwrap();
+    let polymer = parse_lines::<String>(buf_reader_from_arg().unwrap())
+        .next()
+        .unwrap();
     println!("Answer A: {}", part_a(polymer.chars()));
     println!("Answer B: {}", part_b(polymer));
 }
