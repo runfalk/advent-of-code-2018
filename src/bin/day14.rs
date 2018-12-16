@@ -1,3 +1,5 @@
+use aoc::get_arg;
+
 fn parse_digits(number: &str) -> Vec<u8> {
     number.chars().map(|x| x.to_digit(10).unwrap() as u8).collect()
 }
@@ -14,8 +16,6 @@ fn part_a(recipe_index: usize) -> String {
         // Find new recipes
         elf_a = (elf_a + recipes[elf_a] as usize + 1) % recipes.len();
         elf_b = (elf_b + recipes[elf_b] as usize + 1) % recipes.len();
-
-        //println!("A: {}, B: {}, {:?}", elf_a, elf_b, recipes);
     }
     recipes[recipe_index..recipe_index + 10].iter().map(|x| x.to_string()).collect::<String>()
 }
@@ -50,8 +50,10 @@ fn part_b(sequence: &str) -> usize {
 
 
 fn main() {
-    println!("Answer A: {}", part_a(864801));
-    println!("Answer B: {}", part_b("864801"));
+    let arg: String = get_arg().unwrap();
+
+    println!("Answer A: {}", part_a(arg.parse::<usize>().unwrap()));
+    println!("Answer B: {}", part_b(&arg));
 }
 
 #[test]
@@ -68,8 +70,8 @@ fn test_a() {
 
 #[test]
 fn test_b() {
-    assert_eq!(part_b("51589"), 9);
     assert_eq!(part_b("01245"), 5);
+    assert_eq!(part_b("51589"), 9);
     assert_eq!(part_b("92510"), 18);
     assert_eq!(part_b("59414"), 2018);
 }

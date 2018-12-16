@@ -7,25 +7,5 @@ the excellent regex crate since data parsing is such a big part of some tasks.
 
 Answers
 -------
-These are the answers for my data files:
-
-=== ========================== =========================
-Day Part A                     Part B
---- -------------------------- -------------------------
-1   585                        83173
-2   4712                       lufjygedpvfbhftxiwnaorzmq
-3   105231                     164
-4
-5   10888                      6952
-6
-7   JKNSTHCBGRVDXWAYFOQLMPZIUE
-8   37905                      33891
-9   425688                     3526561003
-10
-11  19,41
-12
-13
-14  1611732174                 20279772
-15
-16  607                        577
-=== ========================== =========================
+The input and expected answers for the problems I have solved can be found in
+``tests/test_days.rs``.

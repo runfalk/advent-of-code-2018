@@ -185,7 +185,6 @@ fn part_b(tests: impl Iterator<Item = (Registers, (usize, usize, usize, usize), 
 
     // Convert the opcodes to a true map
     let opcodes: HashMap<usize, OpCode> = op_map.into_iter().map(|(k, v)| (k, v.iter().next().unwrap().clone())).collect();
-    println!("{:#?}", opcodes);
 
     let mut regs = Registers::from_values(0, 0, 0, 0);
     for (op, a, b, c) in program {

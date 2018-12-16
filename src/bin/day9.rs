@@ -1,4 +1,4 @@
-use aoc::{buf_reader_from_arg, parse_lines};
+use aoc::get_args;
 use std::collections::HashMap;
 use std::fmt;
 use std::ptr::NonNull;
@@ -155,8 +155,9 @@ fn part_a(players: usize, max_marble: usize) -> usize {
 }
 
 fn main() {
-    println!("Answer A: {}", part_a(411, 71170));
-    println!("Answer B: {}", part_a(411, 7117000));
+    let args: Vec<usize> = get_args(2).unwrap();
+    println!("Answer A: {}", part_a(args[0], args[1]));
+    println!("Answer B: {}", part_a(args[0], args[1] * 100));
 }
 
 #[test]

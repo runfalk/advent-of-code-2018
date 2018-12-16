@@ -1,3 +1,4 @@
+use aoc::get_arg;
 use std::iter::repeat;
 
 fn extract_base10_digit(mut value: usize, index: u32) -> usize {
@@ -30,7 +31,8 @@ fn part_a(serial: usize) -> (usize, usize) {
 }
 
 fn main() {
-    let (x, y) = part_a(5535);
+    let serial: usize = get_arg().unwrap();
+    let (x, y) = part_a(serial);
     println!("Answer A: {},{}", x, y);
 }
 
