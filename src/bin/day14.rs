@@ -7,14 +7,29 @@ fn parse_digits(number: &str) -> Vec<u8> {
         .collect()
 }
 
+fn extend_recipes(recipes: &mut Vec<u8>, new_recipes: u8) -> bool {
+    if new_recipes > 9 {
+        // Since we are summing to one digit numbers we can never go above
+        // 18.
+        recipes.push(1);
+        recipes.push(new_recipes % 10);
+        true
+    } else {
+        recipes.push(new_recipes);
+        false
+    }
+}
+
 fn part_a(recipe_index: usize) -> String {
     let mut elf_a = 0;
     let mut elf_b = 1;
-    let mut recipes: Vec<u8> = vec![3, 7];
+    let mut recipes: Vec<u8> = Vec::with_capacity(recipe_index + 10);
+    recipes.push(3);
+    recipes.push(7);
 
     while recipes.len() < recipe_index + 10 {
-        let new_recipe = parse_digits(&(recipes[elf_a] + recipes[elf_b]).to_string());
-        recipes.extend(new_recipe);
+        let new_recipes = recipes[elf_a] + recipes[elf_b];
+        extend_recipes(&mut recipes, new_recipes);
 
         // Find new recipes
         elf_a = (elf_a + recipes[elf_a] as usize + 1) % recipes.len();
@@ -33,9 +48,8 @@ fn part_b(sequence: &str) -> usize {
     let sequence = parse_digits(sequence);
 
     loop {
-        let new_recipe = parse_digits(&(recipes[elf_a] + recipes[elf_b]).to_string());
-        let added_two = new_recipe.len() > 1;
-        recipes.extend(new_recipe);
+        let new_recipes = recipes[elf_a] + recipes[elf_b];
+        let added_two = extend_recipes(&mut recipes, new_recipes);
 
         // Find new recipes
         elf_a = (elf_a + recipes[elf_a] as usize + 1) % recipes.len();
