@@ -96,6 +96,14 @@ fn test_day11() {
 }
 
 #[test]
+fn test_day12() {
+    assert_eq!(
+        run_day(12, &["data/day12.txt"]).unwrap(),
+        ab("3276", "3750000001113")
+    );
+}
+
+#[test]
 fn test_day14() {
     assert_eq!(
         run_day(14, &["864801"]).unwrap(),
